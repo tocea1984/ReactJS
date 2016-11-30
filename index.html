@@ -23,106 +23,107 @@
 <body>
     <div id="test" class="right_table_react col-xs-12">
     </div>
+    <div id="container" >
+    </div>
 <script type="text/babel">
     let columns_date = ['id','name','department'];
 
-    let rows_date = [
-    {
-        "key": 1,
-        "Username": "Ivan",
-        "department": "Developer"
-    },
-    {
-        "key": 2,
-        "Username": "Stepan",
-        "department": "Menagers"
-    },
-    {
-        "key": 3,
-        "Username": "Katya",
-        "department": "Design"
-    },
-    {
-        "key": 4,
-        "Username": "Anton",
-        "department": "HR"
-    },
-    {
-        "key": 5,
-        "Username": "Bogdan",
-        "department": "Team"
-    }
-];
-    rows_date.sort(function (a, b) {
-        if (a.Username > b.Username) {
-        return 1;
-    }
-        if (a.name < b.name) {
-        return -1;
-    }
-        return 0;
-}); 
 
- /*   te.sort(function (a, b) {
-        if (a.Username > b.Username) {
-        return 1;
-    }
-        if (a.name < b.name) {
-        return -1;
-    }
-        return 0;
-}); */
-   // console.log(te.);
-    
-    
-    var Contact = React.createClass({
-          render: function() {
-                return (
-                    <tbody>
-                    <tr id="tr">
-                        <td>{this.props.dies}</td>
-                        <td>{this.props.Username}</td>
-                        <td>{this.props.department}</td>
-                    </tr>
-                    </tbody>
-                );
-            }
-        });
-
-    var Table = React.createClass({
+let rows_date_two = {
+    key1 :[0,'ivan','Developer'],
+    key2 :[1,'stepan','Menagers'],
+    key3 :[3,'Katya','Design'],
+    key4 :[4,'Anton','HR'],  
+};
+   
+    let arr_one=[];
+    let arr_two=[];
+        for(var key in rows_date_two){
+            arr_one.push(key);
+            arr_two.push(rows_date_two[key]) 
+        }
+ 
+    let Table = React.createClass({
         getInitialState : function(){
             return {
-                viewEdit:<table>
-                    <tbody>
-                    <tr>
-                        <th>{this.props.col[0]}</th>
-                        <th>{this.props.col[1]}</th>
-                        <th>{this.props.col[2]}</th>
-                    </tr>
-                    </tbody>
-                    {
-                        this.props.rows.map(function(el){
-                            return <Contact
-                                key={el.key}
-                                dies={el.key}
-                                Username={el.Username}
-                                department={el.department}
-                             />;
-                        })
-                    }
-                </table>
+                date_columns: this.props.col,
+                date_rows: this.props.rows,
+                date_rows_val: arr_two
             };
         },
+        sort_id : function(){
+            let sort_obj = this.state.date_rows_val.sort(function (a, b) {
+            if (a[0] > b[0]) {
+                return 1;
+            }
+            if (a[0] < b[0]) {
+                return -1;
+            }
+                return 0;
+            }); 
 
+            this.setState({
+                date_rows_val:sort_obj
+            });
+        },  
+        sort_name : function(){
+            let sort_obj = this.state.date_rows_val.sort(function (a, b) {
+            if (a[1] > b[1]) {
+                return 1;
+            }
+            if (a[1] < b[1]) {
+                return -1;
+            }
+                return 0;
+            }); 
+
+            this.setState({
+                date_rows_val:sort_obj
+            });
+        },
+        sort_departmente : function(){
+            let sort_obj = this.state.date_rows_val.sort(function (a, b) {
+            if (a[2] > b[2]) {
+                return 1;
+            }
+            if (a[2] < b[2]) {
+                return -1;
+            }
+                return 0;
+            }); 
+
+            this.setState({
+                date_rows_val:sort_obj
+            });
+        },  
         render: function(){
-            return this.state.viewEdit
+            return (
+                    <table><tbody><tr>
+                    {
+                        this.state.date_columns.map((item,i) => <th>{item}</th>)
+                    }
+                    </tr></tbody>
+                    <tbody>
+                    {
+                        this.state.date_rows.map((item,i) => 
+                            <tr id="tr">
+                                <td onClick={this.sort_id}>{this.state.date_rows_val[i][0]}</td>
+                                <td onClick={this.sort_name}>{this.state.date_rows_val[i][1]}</td>
+                                <td onClick={this.sort_departmente}>{this.state.date_rows_val[i][2]}</td>
+                            </tr>
+                            )
+                    }
+                    </tbody>
+                </table>
+            )
         }
     });
 
      ReactDOM.render(
-            <Table col={columns_date} rows={rows_date} />,
+            <Table col={columns_date} rows={arr_one} />,
             document.getElementById("test")
         );
+
 </script>
 </body>
 </html>
