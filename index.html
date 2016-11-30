@@ -26,14 +26,15 @@
     <div id="container" >
     </div>
 <script type="text/babel">
-    let columns_date = ['id','name','department'];
+    let columns_date = ['id','name','department','systemId', 'product', 'quantity'];
+
 
 
 let rows_date_two = {
-    key1 :[0,'ivan','Developer'],
-    key2 :[1,'stepan','Menagers'],
-    key3 :[3,'Katya','Design'],
-    key4 :[4,'Anton','HR'],  
+    key1 :[0,'ivan','Developer','5852','spa','5'],
+    key2 :[1,'stepan','Menagers','88552','spa','1'],
+    key3 :[3,'Katya','Design','1158','VPA','12'],
+    key4 :[4,'Anton','HR','9985','WPA','7'],  
 };
    
     let arr_one=[];
@@ -106,10 +107,13 @@ let rows_date_two = {
                     <tbody>
                     {
                         this.state.date_rows.map((item,i) => 
-                            <tr id="tr">
+                            <tr className="tr">
                                 <td onClick={this.sort_id}>{this.state.date_rows_val[i][0]}</td>
                                 <td onClick={this.sort_name}>{this.state.date_rows_val[i][1]}</td>
                                 <td onClick={this.sort_departmente}>{this.state.date_rows_val[i][2]}</td>
+                                <td>{this.state.date_rows_val[i][3]}</td>
+                                <td>{this.state.date_rows_val[i][4]}</td>
+                                <td>{this.state.date_rows_val[i][5]}</td>
                             </tr>
                             )
                     }
